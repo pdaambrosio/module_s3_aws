@@ -14,7 +14,7 @@ resource "aws_s3_bucket" "s3_bucket" {
   bucket = var.bucket_name
 
   dynamic "website" {
-    for_each = var.website_configuration == yes ? [1] : []
+    for_each = var.website_configuration == true ? [1] : []
     content {
       index_document = var.index_document != "" ? var.index_document : "index.html"
       error_document = var.error_document != "" ? var.error_document : "error.html"
