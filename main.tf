@@ -31,11 +31,13 @@ resource "aws_s3_bucket" "s3_bucket" {
 }
 
 resource "aws_bucket_acl" "s3_bucket_acl" {
+  depends_on = [ aws_s3_bucket.s3_bucket ]
   bucket = aws_s3_bucket.s3_bucket.id
   acl    = var.acl
 }
 
 resource "aws_s3_bucket_policy" "s3_bucket_policy" {
+  depends_on = [ aws_s3_bucket.s3_bucket ]
   bucket = aws_s3_bucket.s3_bucket.id
   policy = var.custom_policy != null ? var.custom_policy : data.aws_iam_policy_document.s3_bucket_policy.json
 }
